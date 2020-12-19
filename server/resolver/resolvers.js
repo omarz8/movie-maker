@@ -1,22 +1,19 @@
-//const Movie= require ('../model/model')
-
-const movies=[
-    {id:3, name:'Matrix', genre: 'action', year:'1999'},
-    {id:2, name:'Matrix', genre: 'action', year:'1999'},
-    {id:4, name:'Matrix', genre: 'action', year:'1999'},
-    {id:5, name:'Matrix', genre: 'action', year:'1999'},
-    {id:6, name:'Matrix', genre: 'action', year:'1999'},
-    {id:1, name:'Matrix', genre: 'action', year:'1999'},
-    {id:7, name:'Matrix', genre: 'action', year:'1999'},
-    {id:8, name:'Matrix', genre: 'action', year:'1999'}
-    
-]
-
+const Movie= require ('../model/model')
 
 const resolvers = {
-    movies: ()=> {
-        return movies
+    movies: () => {
+        //all movies
+        return Movie.find({})
+    },
+    addMovie: (args) => {
+        let movie = new Movie({
+            name: args.name,
+            genre: args.genre,
+            year: args.year
+        })
+        movie.save()
+        return movie
     }
 }
 
-module.exports= resolvers
+module.exports = resolvers
