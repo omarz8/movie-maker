@@ -5,6 +5,10 @@ const resolvers = {
         //all movies
         return Movie.find({})
     },
+    movieByName: (args)=>{
+        return Movie.findOne({name: args.name})
+    }
+    ,
     addMovie: (args) => {
         let movie = new Movie({
             name: args.name,
