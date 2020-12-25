@@ -1,32 +1,27 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Movie from "../components/Movie";
-import matrix from "../img/matrix.jpg";
+// import matrix from "../img/matrix.jpg";
+import { useQuery} from '@apollo/client';
+import allMovies from '../apollo/queries';
 
 
 export default function Movies() {
-const movies=[
-    {id:3, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:2, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:4, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:5, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:6, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:1, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:7, name:'Matrix', genre: 'action', year:'1999', image: matrix},
-    {id:8, name:'Matrix', genre: 'action', year:'1999', image: matrix}
+    const {loading, error, data} = useQuery(allMovies);
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Something wrong was happening!</p>
+    console.log(data);
+
+    if (data.movies.length===0){
+        return <h2>Please add movies of your choice</h2>
+    }
     
-]
-
-    const [state, setstate] = useState(movies);
-
-
     return (
         <div className= "movies">
-           { movies.map((movie)=>{
-               return <Movie  key={movie.id}
+           { data.movies.map((movie)=>{
+               return <Movie  key={movie.name}
                name= {movie.name} 
                genre={movie.genre}
                year={movie.year}
-               image={movie.image}
                />
             })}
         </div>
