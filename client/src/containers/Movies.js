@@ -22,6 +22,7 @@ export default function Movies() {
                name= {movie.name} 
                genre={movie.genre}
                year={movie.year}
+            //    file={movie.file}
                />
             })}
         </div>

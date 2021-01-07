@@ -6,10 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import {BrowserRouter as Router} from 'react-router-dom';
+import { createUploadLink } from "apollo-upload-client";
 
+const httpLink = createUploadLink({
+  uri: "http://localhost:3001/graphql/",
+});
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
+  link: httpLink,
   cache: new InMemoryCache()
 });
 
